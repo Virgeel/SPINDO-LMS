@@ -5,10 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  {{-- <link rel="apple-touch-icon" sizes="76x76" href="{{asset('/img/apple-icon.png')}}">
-  <link rel="icon" type="image/png" href="{{asset('/img/favicon.png')}}"> --}}
-    <link rel="icon" type="image/png" href="{{asset('/images/spindo.png')}}">
-
+  <link rel="icon" type="image/png" href="{{asset('/images/spindo.png')}}">
   <title>
     SPINDO Learning Management System
   </title>
@@ -24,21 +21,28 @@
 </head>
 
 
+
+@include('course.partials.navbar')
+
+
 <body class="g-sidenav-show bg-gray-100">
+    
+    <div class="min-height-300 position-absolute w-100" style="background-color:rgb(191,0,0)"></div>
+    
+    @include('course.partials.sidebar')
+    
+        <main class="main-content position-relative border-radius-lg ">
+    
+            @yield('body')
+    
+        </main>
 
-  <div class="min-height-300 position-absolute w-100" style="background-color:rgb(191,0,0)"></div>
-  @include('dashboard.partials.sidebar')
-
-    <main class="main-content position-relative border-radius-lg ">
-
-
-
-
-
-  @yield('body')
-
-    </main>
-
+    </div>
+    
+    
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </html>
