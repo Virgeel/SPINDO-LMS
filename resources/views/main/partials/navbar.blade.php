@@ -7,7 +7,7 @@
                     <div class="nav-inner">
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="/">
+                            <a href="/">
                               <img src="{{ asset('images/spindo.png') }}" 
                                   class="img-fluid" 
                                   style="height: 100px !important; width: auto !important;">                            

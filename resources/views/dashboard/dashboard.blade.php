@@ -2,9 +2,8 @@
 
 @section('body')
 
-  <main class="main-content position-relative border-radius-lg ">
     
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4" >
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
@@ -37,7 +36,7 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Online User</p>
                     <h5 class="font-weight-bolder">
                       2,300
                     </h5>
@@ -87,12 +86,12 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Number 1</p>
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Course</p>
                     <h5 class="font-weight-bolder">
-                      $103,430
+                      57
                     </h5>
                     <p class="mb-0">
-                      <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
+                      <span class="text-success text-sm font-weight-bolder">+5</span> than last month
                     </p>
                   </div>
                 </div>
@@ -110,7 +109,7 @@
         <div class="col-lg-7 mb-lg-0 mb-4">
           <div class="card z-index-2 h-100">
             <div class="card-header pb-0 pt-3 bg-transparent">
-              <h6 class="text-capitalize">Sales overview</h6>
+              <h6 class="text-capitalize">Course Completed</h6>
               <p class="text-sm mb-0">
                 <i class="fa fa-arrow-up text-success"></i>
                 <span class="font-weight-bold">4% more</span> in 2021
@@ -172,7 +171,7 @@
       </div>
       <div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
-          <div class="card ">
+          {{-- <div class="card ">
             <div class="card-header pb-0 p-3">
               <div class="d-flex justify-content-between">
                 <h6 class="mb-2">Sales by Country</h6>
@@ -309,8 +308,8 @@
               </table>
             </div>
           </div>
-        </div>
-        <div class="col-lg-5">
+        </div> --}}
+        {{-- <div class="col-lg-5">
           <div class="card">
             <div class="card-header pb-0 p-3">
               <h6 class="mb-0">Categories</h6>
@@ -376,11 +375,10 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> --}}
       </div>
       
     </div>
-  </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="fa fa-cog py-2"> </i>

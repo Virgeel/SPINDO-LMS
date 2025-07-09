@@ -11,4 +11,14 @@ class DashboardController extends Controller
 
         return view('dashboard.dashboard');
     }
+
+    public function course(){
+
+        return view('dashboard.coursedashboard');
+    }
+
+    public function approval(){
+
+        return view('dashboard.approvaldashboard');
+    }
 }
