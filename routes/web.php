@@ -24,7 +24,13 @@ Route::get('/courseposttest',[CourseController::class,'courseposttest'])->name('
 Route::get('/course-congratulate',[CourseController::class,'finish'])->name('coursefinish');
 
 Route::get('/dashboard/course',[DashboardController::class,'course'])->name('dashboard.course');
+Route::get('/dashboard/course/create',[DashboardController::class,'createcourse'])->name('dashboard.createcourse');
+Route::post('/dsahboard/course/add',[DashboardController::class,'addcourse'])->name('dashboard.addcourse');
+
+Route::get('/dashboard/user',[DashboardController::class,'user'])->name('dashboard.user');
+Route::get('/dsahboard/user/create',[DashboardController::class,'createuser'])->name('dashboard.createuser');
 Route::get('/dashboard/approval',[DashboardController::class,'approval'])->name('dashboard.approval');
+
 
 
 

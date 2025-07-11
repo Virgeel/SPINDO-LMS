@@ -8,7 +8,7 @@
             <div class="card shadow-lg">
                 <div  style="border-radius:7px;" class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center">
                     <h3 class="mb-0" style="color:#fff">📚 List Materi</h3>
-                    <a href="#" class="btn btn-light text-danger fw-bold" style="background-color:#fff">
+                    <a href="{{route('dashboard.createcourse')}}" class="btn btn-light text-danger fw-bold" style="background-color:#fff">
                         <i class="fas fa-plus me-2"></i> Tambahkan Materi
                     </a>
                 </div>

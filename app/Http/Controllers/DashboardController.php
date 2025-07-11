@@ -17,8 +17,29 @@ class DashboardController extends Controller
         return view('dashboard.coursedashboard');
     }
 
+    public function createcourse(){
+
+
+        return view('dashboard.createcourse');
+    }
+
+    public function addcourse(){
+
+        return redirect(route('dashboard.course'));
+    }
+
     public function approval(){
 
         return view('dashboard.approvaldashboard');
+    }
+
+    public function user(){
+        
+        return view('dashboard.userdashboard');
+    }
+
+    public function createuser(){
+
+        return view('dashboard.createuser');
     }
 }
