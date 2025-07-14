@@ -29,8 +29,20 @@ Route::post('/dsahboard/course/add',[DashboardController::class,'addcourse'])->n
 
 Route::get('/dashboard/user',[DashboardController::class,'user'])->name('dashboard.user');
 Route::get('/dsahboard/user/create',[DashboardController::class,'createuser'])->name('dashboard.createuser');
+
+Route::get('/dashboard/jobposition',[DashboardController::class,'jobposition'])->name('dashboard.jobposition');
+Route::get('/dahsboard/jobposition/create',[DashboardController::class,'createjobposition'])->name('dashboard.createjobposition');
+Route::get('/dashboard/jobposition/add',[DashboardController::class,'addjobposition'])->name('dashboard.addjobposition');
+
 Route::get('/dashboard/approval',[DashboardController::class,'approval'])->name('dashboard.approval');
 
+
+
+Route::get('/tailwindtest',function(){
+
+    return view('tailwindtest');
+
+});
 
 
 

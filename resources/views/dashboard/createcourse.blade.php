@@ -5,12 +5,22 @@
 
 <div class="container-fluid py-4">
 
+    @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+
     <div class="row">
         <div class="col-xl-12 mb-4">
             <div class="card shadow-lg">
 
                 <div style="border-radius:7px" class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0" style="color:#fff"> Tambahkan Course </h3>
+                    <h3 class="mb-0" style="color:#fff"> 📚 Tambahkan Course </h3>
 
                 </div>
 
@@ -20,15 +30,19 @@
                     <div class="d-flex">
 
                         <div class="col-lg-6">
+
+                            <input type="hidden" name="uploader_id" value="1">
+                            
                             <div class=" py-1">
                                 <label for="">Materi untuk</label>
-                                <select class="form-select" name="" id="" name="assginee">
-                                    <option value="">Operational Trainee</option>
-                                    <option value="">Management Trainee</option>
+                                <select class="form-select" name="coursefor_id" id="">
+                                    @foreach($jobPositions as $jobPosition)
+                                        <option value="{{$jobPosition->id}}">{{$jobPosition->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class=" py-1">
-                                <label for="">Nama Materi</label>
+                                <label for="name">Nama Materi</label>
                                 <input name="name" type="text" class="form-control">
                             </div>
                             <div class=" py-1">
@@ -37,15 +51,18 @@
                             </div>
                             <div class=" py-1">
                                 <label for="">Kategori</label>
-                                <select class="form-select" name="category">
-                                    <option value=""></option>
+                                <select class="form-select" name="category_id">
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class=" py-1">
                                 <label for="">Tipe</label>
-                                <select class="form-select" name="type" id="">
-                                    <option value="">Video</option>
-                                    <option value="">Text</option>
+                                <select class="form-select" name="type_id">
+                                    @foreach($types as $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class=" py-1">
