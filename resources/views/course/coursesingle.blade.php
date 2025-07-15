@@ -2,10 +2,10 @@
 
 @section('body')
 
-<section class="container-fluid py-5 min-vh-100">
+<section class="container-fluid min-vh-100">
 
   {{-- ---------- Course Header ---------- --}}
-  <div class="card shadow mb-4 border-0 rounded-4">
+  <div class="card shadow mb-4 border-0 rounded-1">
     <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
       <div>
         <h1 class="h4 fw-bold text-dark mb-1">📘 Apa itu SPINDO?</h1>
@@ -28,7 +28,7 @@
 
     {{-- Video / Lesson --}}
     <div class="col-lg-9">
-      <div class="card shadow-sm border-0 rounded-4">
+      <div class="card shadow-sm border-0 rounded-1">
         <div class="ratio ratio-16x9">
           <iframe class="rounded-top" src="https://www.youtube.com/embed/EwV4R170lhE?si=842GfwX9r2VzMc8P" title="Video SPINDO"
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
@@ -43,7 +43,7 @@
 
     {{-- Sidebar --}}
     <div class="col-lg-3">
-      <div class="card shadow-sm border-0 rounded-4">
+      <div class="card shadow-sm border-0 rounded-1">
         <div class="card-body">
           <h3 class="h6 fw-semibold text-dark mb-3">📂 Daftar Materi</h3>
           <ul class="list-group list-group-flush">

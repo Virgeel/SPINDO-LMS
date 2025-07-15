@@ -2,70 +2,58 @@
 
 @section('body')
 
-<div class="container py-5">
-    <h2 class="mb-4 text-light fw-bold">📚 Daftar Kursus</h2>
+<div class="px-4 py-4" style="min-height: 80vh;">
 
-    <div class="card shadow-lg border-0 rounded-4">
-        <div class="card-body">
+    {{-- ✅ Welcome Header --}}
+    <div class="mb-5 text-center">
+        <h2 class="fw-bolder" style="font-size: 2.5rem; letter-spacing: 0.05em; color: #441e1e;">
+            👋 Selamat Datang di <span>SPINDO LMS</span>!
+        </h2>
+        <p class="small mx-auto fw-bold" style="color: #441e1e; max-width: 500px; font-size: 1rem; opacity: 0.85;">
+            Pilih kursus di bawah untuk mulai belajar 📚. <br>Tingkatkan wawasan dan keterampilan Anda hari ini!
+        </p>
+    </div>
 
-            <div class="table-responsive">
-                <table class="table table-hover align-middle text-sm">
-                    <thead class="table text-center">
-                        <tr>
-                            <th>#</th>
-                            <th>📖 Judul Kursus</th>
-                            <th>📝 Deskripsi</th>
-                            <th>⏱️ Durasi</th>
-                            <th>🔗 Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {{-- Course 1 --}}
-                        <tr>
-                            <td>1</td>
-                            <td><strong>Pengenalan SPINDO</strong></td>
-                            <td class="text-muted">Sejarah, profil perusahaan, dan overview proses bisnis utama.</td>
-                            <td><span class="badge bg-primary">45 menit</span></td>
-                            <td>
-                                <a href="{{ route('coursehome') }}" class="btn btn-sm btn-outline-danger">
-                                    <i class="fas fa-sign-in-alt"></i> Masuk Kursus
-                                </a>
-                            </td>
-                        </tr>
-
-                        {{-- Course 2 --}}
-                        <tr>
-                            <td>2</td>
-                            <td><strong>Keselamatan Kerja (K3)</strong></td>
-                            <td class="text-muted">Penerapan standar K3 di lingkungan pabrik SPINDO.</td>
-                            <td><span class="badge bg-primary">30 menit</span></td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-outline-danger">
-                                    <i class="fas fa-sign-in-alt"></i> Masuk Kursus
-                                </a>
-                            </td>
-                        </tr>
-
-                        {{-- Course 3 --}}
-                        <tr>
-                            <td>3</td>
-                            <td><strong>Proses Produksi Pipa Baja</strong></td>
-                            <td class="text-muted">Detail alur produksi dan pengendalian kualitas pipa baja.</td>
-                            <td><span class="badge bg-primary">60 menit</span></td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-outline-danger">
-                                    <i class="fas fa-sign-in-alt"></i> Masuk Kursus
-                                </a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
+    {{-- ✅ Course Grid --}}
+    <h4 class="fw-bold mb-4" style="letter-spacing: 0.03em; color: #441e1e;">Daftar Kursus Tersedia</h4>
+    <div class="row g-3">
+        @foreach($courses as $course)
+        <div class="col-6 col-md-3 col-lg-2 col-xl-3">
+            <a href="{{ route('coursehome') }}" class="text-decoration-none">
+                <div class="card h-100 shadow-sm border-0 rounded-0" 
+                     style="transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
+                    <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/Water-Pipes-1-640w.jpg" 
+                         class="card-img-top" 
+                         style="height: 120px; object-fit: cover;" 
+                         alt="Course Thumbnail">
+                    <div class="card-body px-3 py-3 d-flex flex-column">
+                        <h6 class="fw-bold text-dark mb-2" style="font-size: 0.9rem;">
+                             {{ Str::limit($course->name, 40) }}
+                        </h6>
+                        <p class="text-muted small mb-3" style="font-size: 0.8rem;">
+                         {{ Str::limit($course->short_description ?? '-', 50) }}
+                        </p>
+                        <span class="badge bg-danger mb-2" style="font-size: 0.75rem; align-self: flex-start;">⏱️ 45 menit</span>
+                    </div>
+                </div>
+            </a>
         </div>
+        @endforeach
     </div>
 </div>
+
+<script>
+    // Card hover animation
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-6px)';
+            card.style.boxShadow = '0 12px 20px rgba(255, 77, 77, 0.4)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = '';
+        });
+    });
+</script>
 
 @endsection

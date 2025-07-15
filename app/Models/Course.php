@@ -13,14 +13,18 @@ class Course extends Model
     protected $fillable = [
         'coursefor_id',
         'uploader_id',
-        'type_id',
         'category_id',
         'name',
+        'short_description',
         'description',
         'category',
         'type',
-        'thumbnail',
-        'video',
-        
+        'photo',
     ];
+
+
+    public function user(){
+        
+        return $this->belongsTo(User::class,'uploader_id');
+    }
 }

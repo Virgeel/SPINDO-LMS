@@ -11,29 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedSmallInteger('duration')->nullable();
             $table->unsignedBigInteger('uploader_id');
             $table->foreign('uploader_id')->references('id')->on('users');
-            $table->text('description');
+            $table->unsignedBigInteger('type_id');
+            $table->foreign('type_id')->references('id')->on('types');
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')->references('id')->on('courses');
             $table->string('short_description');
-            $table->string('photo')->nullable();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedBigInteger('coursefor_id');
-            $table->foreign('coursefor_id')->references('id')->on('job_positions');
+            $table->text('description');
+            $table->string('thumbnail')->nullable();
+            $table->string('video')->nullable();
+            $table->text('explanation')->nullable();
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('contents');
     }
 };

@@ -2,11 +2,11 @@
 
 @section('body')
 
-<div class="container py-5">
+<div class="px-4 py-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
 
-            <div class="card shadow-sm">
+            <div class="card shadow-sm rounded-1">
                 <div class="card-body">
                     <p class="card-title">Pre-Test </p>
                     <h3 class="card-title mb-3">Apa itu SPINDO ?</h3>
@@ -88,6 +88,19 @@
                 </div>
             </div>
 
+        </div>
+
+        {{-- ✅ Course Overview --}}
+        <div class="mb-5 p-3 col">
+            <h2 class="fw-bold" style="font-size: 2rem; color: #8B0000;">📘 {{ $course->name ?? 'Pengenalan SPINDO' }}</h2>
+            <p class="text-muted" style="font-size: 1rem;">
+                Pelajari sejarah, struktur organisasi, dan proses produksi di SPINDO.
+            </p>
+
+            <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/ImageSlide-1-640w.jpg" 
+                class="img-fluid rounded shadow mb-4" 
+                style="max-height: 320px; object-fit: cover;" 
+                alt="Course Cover">
         </div>
     </div>
 </div>

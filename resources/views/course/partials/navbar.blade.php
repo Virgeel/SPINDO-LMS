@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-1">
     <div class="container-fluid">
         {{-- Sidebar toggle (opsional, jika ingin sidebar collapsible) --}}
         <button class="btn btn-outline-secondary d-xl-none me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
@@ -7,8 +7,8 @@
 
         {{-- Brand --}}
         <a class="navbar-brand fw-bold" href="{{ route('courseindex') }}">
-            <img src="{{ asset('images/spindo.png') }}" alt="SPINDO Logo" width="26" height="26" class="d-inline-block align-text-top me-2">
-            SPINDO LMS
+            <img src="{{ asset('images/spindo.png') }}" alt="SPINDO Logo" width="70" height="70" class="d-inline-block align-text-top me-2">
+            
         </a>
 
         {{-- Optional right side items --}}

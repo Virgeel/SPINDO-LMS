@@ -20,7 +20,7 @@
             <div class="card shadow-lg">
 
                 <div style="border-radius:7px" class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0" style="color:#fff"> 📚 Tambahkan Course </h3>
+                    <h3 class="mb-0" style="color:#fff"> 📚 Tambahkan Materi </h3>
 
                 </div>
 
@@ -46,7 +46,11 @@
                                 <input name="name" type="text" class="form-control">
                             </div>
                             <div class=" py-1">
-                                <label for="">Deskripsi</label>
+                                <label for="">Deskripsi Singkat</label>
+                                <input name="short_description" class="form-control">
+                            </div>
+                            <div class=" py-1">
+                                <label for="">Deskripsi Lengkap</label>
                                 <textarea name="description" class="form-control" rows="4"></textarea>
                             </div>
                             <div class=" py-1">
@@ -58,21 +62,10 @@
                                 </select>
                             </div>
                             <div class=" py-1">
-                                <label for="">Tipe</label>
-                                <select class="form-select" name="type_id">
-                                    @foreach($types as $type)
-                                        <option value="{{$type->id}}">{{$type->name}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="">Photo</label>
+                                <input type="file" class="form-control" name="photo">
                             </div>
-                            <div class=" py-1">
-                                <label for="">Thumbnail</label>
-                                <input type="file" class="form-control" name="thumbnail">
-                            </div>
-                            <div class=" py-1">
-                                <label for="">Video</label>
-                                <input type="file" class="form-control" name="video">
-                            </div>
+                            
                             </div>
                             <div >
 
@@ -85,16 +78,11 @@
                             </div>
 
                             <div class="col lg-6">
-                                <div class="d-flex">
-                                    <div>
-                                         <iframe class="rounded-top" src="https://www.youtube.com/embed/EwV4R170lhE?si=842GfwX9r2VzMc8P" title="Video SPINDO"
-                                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                                        </iframe>
-                                    </div>
+                                    
                                     <div>
                                         <img src="{{asset('/images/test.jpg')}}" alt="" height="175rem">
                                     </div>
-                                </div>
+                            
 
                                 <h5>Ini contoh title</h5>
 
