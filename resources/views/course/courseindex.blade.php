@@ -5,21 +5,21 @@
 <div class="px-4 py-4" style="min-height: 80vh;">
 
     {{-- ✅ Welcome Header --}}
-    <div class="mb-5 text-center">
-        <h2 class="fw-bolder" style="font-size: 2.5rem; letter-spacing: 0.05em; color: #441e1e;">
-            👋 Selamat Datang di <span>SPINDO LMS</span>!
+    <div class="mb-5 pt-4 text-center">
+        <h2 class="fw-bolder" style="font-size: 2.5rem; letter-spacing: 0.05em; color: #363636">
+            Selamat Datang di <span>SPINDO LMS</span>!
         </h2>
-        <p class="small mx-auto fw-bold" style="color: #441e1e; max-width: 500px; font-size: 1rem; opacity: 0.85;">
-            Pilih kursus di bawah untuk mulai belajar 📚. <br>Tingkatkan wawasan dan keterampilan Anda hari ini!
+        <p class="small mx-auto fw-bold" style="color: #5f5f5f; max-width: 500px; font-size: 1rem; opacity: 0.85;">
+            Pilih kursus di bawah untuk mulai belajar <br>Tingkatkan wawasan dan keterampilan Anda hari ini!
         </p>
     </div>
 
     {{-- ✅ Course Grid --}}
-    <h4 class="fw-bold mb-4" style="letter-spacing: 0.03em; color: #441e1e;">Daftar Kursus Tersedia</h4>
+    <h4 class="fw-bold mb-4" style="letter-spacing: 0.03em; color: #5f5f5fe;">Daftar Kursus Tersedia</h4>
     <div class="row g-3">
         @foreach($courses as $course)
         <div class="col-6 col-md-3 col-lg-2 col-xl-3">
-            <a href="{{ route('coursehome') }}" class="text-decoration-none">
+            <a href="{{ route('coursehome',['id'=>$course->id]) }}" class="text-decoration-none">
                 <div class="card h-100 shadow-sm border-0 rounded-0" 
                      style="transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;">
                     <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/Water-Pipes-1-640w.jpg" 
@@ -33,7 +33,12 @@
                         <p class="text-muted small mb-3" style="font-size: 0.8rem;">
                          {{ Str::limit($course->short_description ?? '-', 50) }}
                         </p>
-                        <span class="badge bg-danger mb-2" style="font-size: 0.75rem; align-self: flex-start;">⏱️ 45 menit</span>
+                        <div class="pb-2">
+                            <div class="progress" style="height:15px">
+                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                            </div>
+                        </div>
+                        <span class="badge bg-danger mt-2 mb-2" style="font-size: 0.75rem; align-self: flex-start;">⏱️ 45 menit</span>
                     </div>
                 </div>
             </a>

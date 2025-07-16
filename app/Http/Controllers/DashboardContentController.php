@@ -9,6 +9,10 @@ use App\Models\Course;
 use App\Models\Type;
 use App\Models\JobPosition;
 use App\Models\Category;
+use App\Models\TestType;
+use App\Models\Test;
+use App\Models\Questions;
+use App\Models\Answer;
 
 class DashboardContentController extends Controller
 {
@@ -21,6 +25,8 @@ class DashboardContentController extends Controller
         $data['course'] = Course::where('id',$id)->first();
 
         $data['contents'] = Content::where('course_id',$id)->get();
+
+        $data['tests'] = Test::where('course_id',$id)->get();
 
         return view('dashboard.dashboardcontent',$data);
     }
@@ -57,17 +63,50 @@ class DashboardContentController extends Controller
         return redirect(route('dashboard.content',['id'=>$id]));
     }
 
-    public function createEvaluation(){
+    public function createEvaluation($id){
 
-        return view('dashboard.createevaluation');
+        $data['course']=Course::findorFail($id);
+        $data['testtypes']=TestType::all();
+
+        return view('dashboard.createevaluation',$data);
     }
 
     public function storeEvaluation(Request $request, $id){
-
         
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'name'     => 'required|string',
+            'type'      => 'required',
+            'questions' => 'required|array|min:1',
+            'uploader_id' => 'required',
+            
+        ]);
 
+        // ✅ Create Quiz
+        $test = Test::create([
+            'course_id' => $request->course_id,
+            'name'     => $request->name,
+            'test_type_id' => $request->type,
+            'uploader_id' => $request->uploader_id
+        ]);
 
-        return redirect(route('dashboard.content',['id'->$id]));
+        // ✅ Loop through questions
+        foreach ($request->questions as $qIndex => $qData) {
+            $question = Questions::create([
+                'test_id' => $test->id,
+                'question_text'    => $qData['question_text'],
+            ]);
+
+            foreach ($qData['answer_text'] as $aIndex => $answerText) {
+                Answer::create([
+                    'question_id' => $question->id,
+                    'answer_text' => $answerText,
+                    'is_correct'  => $aIndex == $qData['correct'] ? 1 : 0,
+                ]);
+            }
+        }
+
+        return redirect()->route('dashboard.content', ['id' => $id]);
     }
 
     /**

@@ -8,61 +8,34 @@
 
             <div class="card shadow-sm rounded-1">
                 <div class="card-body">
-                    <p class="card-title">Pre-Test </p>
-                    <h3 class="card-title mb-3">Apa itu SPINDO ?</h3>
+                    <p class="card-title">{{$test->test_type->name}}</p>
+                    <h3 class="card-title mb-3">{{$test->name}}</h3>
                     <p class="text-muted">Silakan jawab pertanyaan di bawah ini untuk mengukur pemahaman awal Anda sebelum mengikuti materi.</p>
 
                     <form>
-                        {{-- Question 1 --}}
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">1. Apa kepanjangan dari SPINDO?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q1" id="q1a" value="a">
-                                <label class="form-check-label" for="q1a">Surabaya Pipe Indonesia</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q1" id="q1b" value="b">
-                                <label class="form-check-label" for="q1b">Steel Pipe Industry of Indonesia</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q1" id="q1c" value="c">
-                                <label class="form-check-label" for="q1c">Standard Pipe Industrial Office</label>
-                            </div>
-                        </div>
+                        @foreach($questions as $question)
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    {{ $loop->iteration }}. {{ $question->question_text }}
+                                </label>
 
-                        {{-- Question 2 --}}
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">2. Dimana kantor pusat SPINDO berada?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q2" id="q2a" value="a">
-                                <label class="form-check-label" for="q2a">Jakarta</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q2" id="q2b" value="b">
-                                <label class="form-check-label" for="q2b">Surabaya</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q2" id="q2c" value="c">
-                                <label class="form-check-label" for="q2c">Bandung</label>
-                            </div>
-                        </div>
+                                @foreach($question->answer as $answer)
+                                    <div class="form-check">
+                                        <input class="form-check-input" 
+                                            type="radio" 
+                                            name="answers[{{ $question->id }}]" 
+                                            id="answer_{{ $answer->id }}" 
+                                            value="{{ $answer->id }}">
 
-                        {{-- Question 3 --}}
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">3. Produk utama dari SPINDO adalah?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q3" id="q3a" value="a">
-                                <label class="form-check-label" for="q3a">Besi Beton</label>
+                                        <label class="form-check-label" for="answer_{{ $answer->id }}">
+                                            {{ $answer->answer_text }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q3" id="q3b" value="b">
-                                <label class="form-check-label" for="q3b">Pipa Baja</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="q3" id="q3c" value="c">
-                                <label class="form-check-label" for="q3c">Semen</label>
-                            </div>
-                        </div>
+                        @endforeach
+
+                        
 
                         {{-- Submit Button triggers modal
                         <div class="text-end">
@@ -91,16 +64,16 @@
         </div>
 
         {{-- ✅ Course Overview --}}
-        <div class="mb-5 p-3 col">
-            <h2 class="fw-bold" style="font-size: 2rem; color: #8B0000;">📘 {{ $course->name ?? 'Pengenalan SPINDO' }}</h2>
+        <div class="card rounded-1 mb-5 p-3 col-lg-3">
+            <h2 class="fw-bolder" style="font-size: 2rem; color: #5f5f5f;"> {{ $course->name ?? 'Pengenalan SPINDO' }}</h2>
+            
+            <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/ImageSlide-1-640w.jpg" 
+            class="img-fluid rounded shadow mb-4" 
+            style="max-height: 320px; object-fit: cover;" 
+            alt="Course Cover">
             <p class="text-muted" style="font-size: 1rem;">
                 Pelajari sejarah, struktur organisasi, dan proses produksi di SPINDO.
             </p>
-
-            <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/ImageSlide-1-640w.jpg" 
-                class="img-fluid rounded shadow mb-4" 
-                style="max-height: 320px; object-fit: cover;" 
-                alt="Course Cover">
         </div>
     </div>
 </div>

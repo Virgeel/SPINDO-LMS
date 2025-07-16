@@ -16,7 +16,7 @@
 
   <style>
   body {
-    background: linear-gradient(135deg, #f9fafb 0%, #e0e7ff 100%);
+    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
     font-family: 'Open Sans', sans-serif;
     color: #212529; /* Dark gray for text */
     line-height: 1.6;

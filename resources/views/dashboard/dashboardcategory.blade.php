@@ -7,26 +7,23 @@
         <div class="col-lg-6 mb-4">
             <div class="card shadow-lg rounded-0">
                 <div class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center rounded-0">
-                    <h3 class="mb-0 text-white">📚 Category</h3>
+                    <h3 class="mb-0 text-white">Category</h3>
                 </div>
 
                 <div class="card-body">
                     {{-- Action Buttons --}}
-                    {{-- <div class="mb-4 d-flex flex-wrap gap-2">
-                        <a href="{{ route('dashboard.createcontent', ['id' => $course->id]) }}" class="btn bg-gradient-danger text-light fw-bold">
-                            <i class="fas fa-plus me-2"></i> Tambahkan Konten
+                    <div class="mb-4 d-flex flex-wrap gap-2">
+                        <a href="{{ route('dashboard.category.create')}}" class="btn bg-gradient-danger text-light fw-bold">
+                            <i class="fas fa-plus me-2"></i> Tambahkan Kategori
                         </a>
-                        <a href="{{ route('dashboard.createcontent', ['id' => $course->id]) }}" class="btn bg-gradient-success text-light fw-bold">
-                            <i class="fas fa-file-alt me-2"></i> Tambahkan Evaluasi
-                        </a>
-                    </div> --}}
+                    </div>
 
                     {{-- Table with Image --}}
                     <div class="table-responsive">
                         <table class="table table-hover align-middle text-sm">
                             <thead class="table">
                                 <tr class="text-center">
-                                    <th style="width: 100px;"></th>
+                                    <th style="width: 5px;"></th>
                                     <th class="text-start">Nama Kategori</th>
                                     <th style="width: 160px;">Aksi</th>
                                 </tr>

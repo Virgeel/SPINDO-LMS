@@ -7,7 +7,7 @@
     <div class="col-xl-12 mb-4">
       <div class="card shadow-lg rounded-0">
         <div class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center rounded-0">
-          <h3 class="mb-0 text-white">📚 List Materi</h3>
+          <h3 class="mb-0 text-white">List Materi</h3>
           <a href="{{ route('dashboard.createcourse') }}" class="btn btn-light text-danger fw-bold">
             <i class="fas fa-plus me-2"></i> Tambahkan Materi
           </a>
