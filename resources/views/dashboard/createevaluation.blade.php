@@ -8,7 +8,7 @@
             <div class="card shadow-lg">
 
                 <div style="border-radius:7px" class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-4 fw-bold text-light">Buat Pre-Test / Post-Test</h3>
+                    <h3 class="mb-4 fw-bold text-light">Buat Evaluasi Pre-Test dan Post-Test</h3>
         
                 </div>
                 
@@ -39,20 +39,20 @@
                     {{-- Quiz Title --}}
                     <div class="mb-3">
                         <label for="name" class="form-label fw-bold">🖊️ Judul Tes</label>
-                        <input type="text" name="name" id="name" class="form-control" required placeholder="Contoh: Pre-Test Pengenalan SPINDO">
+                        <input type="text" name="name" id="name" class="form-control" required placeholder="Contoh: Pengenalan SPINDO">
                     </div>
 
                     {{-- Quiz Type --}}
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="type" class="form-label fw-bold">🧪 Tipe Tes</label>
                         <select name="type" id="type" class="form-select" required>
                             @foreach($testtypes as $testtype)
                                 <option value="{{$testtype->id}}">{{$testtype->name}}</option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
 
-                    <hr class="my-4">
+                    <hr class="my-2">
 
                     {{-- Questions --}}
                     <div id="questions-area">

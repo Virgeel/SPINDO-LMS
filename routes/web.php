@@ -24,7 +24,7 @@ Route::post('/login',[LoginController::class,'signin'])->name('singin');
 
 Route::get('/course',[CourseController::class,'index'])->name('courseindex');
 Route::get('/course/{id}/home',[CourseController::class,'home'])->name('coursehome');
-Route::get('/course/home/single',[CourseController::class,'single'])->name('coursesingle');
+Route::get('/course/{id}/home/single',[CourseController::class,'single'])->name('coursesingle');
 Route::get('/course/{id}/home/{testId}/pretest',[CourseController::class,'coursepretest'])->name('coursepretest');
 Route::get('/course/{id}/home/{testId}/posttest',[CourseController::class,'courseposttest'])->name('courseposttest');
 Route::get('/course/congratulate',[CourseController::class,'finish'])->name('coursefinish');

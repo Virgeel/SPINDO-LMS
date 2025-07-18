@@ -64,7 +64,7 @@
       </div>
 
       <div class="pt-3 text-end">
-        <a href="{{ route('courseposttest') }}" class="btn btn-danger w-100">
+        <a href="{{ route('courseposttest',['id'=>$course->id,'testId'=>$test->id]) }}" class="btn btn-danger w-100">
           Materi Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
         </a>
       </div>

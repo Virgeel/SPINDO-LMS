@@ -21,6 +21,9 @@
   <script src="https://kit.fontawesome.com/8b2709b4af.js" crossorigin="anonymous"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="{{asset('/css/argon-dashboard.css?v=2.1.0')}}" rel="stylesheet" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
 </head>
 
 

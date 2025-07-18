@@ -17,9 +17,33 @@
                         <a href="{{ route('dashboard.createcontent', ['id' => $course->id]) }}" class="btn bg-gradient-danger text-light fw-bold">
                             <i class="fas fa-plus me-2"></i> Tambahkan Konten
                         </a>
-                        <a href="{{ route('dashboard.createevaluation', ['id' => $course->id]) }}" class="btn bg-gradient-success text-light fw-bold">
-                            <i class="fas fa-file-alt me-2"></i> Tambahkan Evaluasi
-                        </a>
+                        @if ($tests->isNotEmpty())
+                            <button type="button" class="btn bg-gradient-secondary text-light fw-bold" data-bs-toggle="modal" data-bs-target="#testExistsModal">
+                                <i class="fas fa-file-alt me-2"></i> Tambahkan Evaluasi
+                            </button>
+                        @else
+                            <a href="{{ route('dashboard.createevaluation', ['id' => $course->id]) }}" class="btn bg-gradient-success text-light fw-bold">
+                                <i class="fas fa-file-alt me-2"></i> Tambahkan Evaluasi
+                            </a>
+                        @endif
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="testExistsModal" tabindex="-1" aria-labelledby="testExistsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content bg-light text-dark rounded-4 shadow">
+                                    <div class="modal-header border-0">
+                                        <h5 class="modal-title fw-bold" id="testExistsModalLabel">⚠️ Evaluasi Sudah Dibuat</h5> 
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Anda tidak dapat membuat Evaluasi baru karena sudah tersedia untuk kursus ini.
+                                    </div>
+                                    <div class="modal-footer border-0">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                         
                         <div class="form-outline" data-mdb-input-init>
@@ -36,6 +60,7 @@
                                 <tr class="text-center">
                                     <th style="width: 100px;"></th>
                                     <th>Nama Konten</th>
+                                    <th>Tipe</th>
                                     <th>Durasi</th>
                                     <th>Dibuat Oleh</th>
                                     <th style="width: 160px;">Aksi</th>
@@ -53,6 +78,9 @@
                                     <td>
                                         <strong>{{ $test->name }}</strong>
                                     </td>
+                                    <td>
+                                        <strong>Konten</strong>
+                                    </td>
                                     <td>45 Menit</td>
                                     <td>{{ $test->user->name ?? 'None' }}</td>
                                     <td class="text-center">
@@ -61,6 +89,9 @@
                                         </a>
                                         <a href="#" class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -75,6 +106,9 @@
                                     <td>
                                         <strong>{{ $content->name }}</strong>
                                     </td>
+                                    <td>
+                                        <strong>Konten</strong>
+                                    </td>
                                     <td>45 Menit</td>
                                     <td>{{ $content->user->name }}</td>
                                     <td class="text-center">
@@ -83,6 +117,9 @@
                                         </a>
                                         <a href="#" class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -104,5 +141,7 @@
         </div>
     </div>
 </div>
+
+
 
 @endsection

@@ -37,9 +37,16 @@ class CourseController extends Controller
         return view('course.coursehome',$data);
     }
     
-    public function single(){
+    public function single($id){
+
+        $data['course'] = Course::where('id',$id)->firstOrFail();
+
+        $posttestId = 2;
+        $data['test'] = Test::where('course_id',$id)
+                    ->where('test_type_id',$posttestId)
+                    ->firstOrFail();
         
-        return view('course.coursesingle');
+        return view('course.coursesingle',$data);
     }
 
     public function coursepretest($id, $testId){
@@ -56,7 +63,15 @@ class CourseController extends Controller
 
     public function courseposttest($id, $testId){
 
-        return view('course.courseposttest');
+        $data['test'] = Test::with('test_type')
+                        ->where('id',$testId)
+                        ->where('course_id',$id)
+                        ->firstOrFail();
+
+        $data['questions'] = Questions::where('test_id',$testId)->get();
+
+        return view('course.courseposttest',$data);
+
     }
 
     public function finish(){

@@ -25,9 +25,7 @@
         <li class="nav-item">
           <a class="nav-link text-dark fw-semibold" href="{{ route('courseindex') }}">🏠 Dashboard</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark fw-semibold" href="{{ route('courseindex') }}">📘 Materi</a>
-        </li>
+        
         <li class="nav-item">
           <a class="nav-link text-dark fw-semibold" href="#">📄 Sertifikat</a>
         </li>
