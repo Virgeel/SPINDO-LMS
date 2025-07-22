@@ -93,7 +93,7 @@
       </div>
 
       <div class="modal-footer border-0 justify-content-center">
-        <a href="{{ route('coursesingle') }}" class="btn btn-primary">Lanjut ke Materi 1</a>
+        <a href="{{ route('coursesingle',['id'=>$course->id,'contentId'=>$next->id]) }}" class="btn btn-primary">Lanjut ke Materi 1</a>
       </div>
     </div>
   </div>

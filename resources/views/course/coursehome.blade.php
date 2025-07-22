@@ -23,105 +23,60 @@
                             </tr>
                         </thead>
                         <tbody  style="font-size: 0.95rem;">
-                            @foreach($pretests as $test)
-                            <tr>
-                                <td class="text-muted">1</td>
-                                <td><i class="fas fa-file-alt text-danger me-2"></i><strong>{{$test->name}}</strong></td>
-                                <td><span class="badge bg-success">Selesai</span></td>
-                                <td>
-                                    <a href="{{ route('coursepretest',['id'=>$course->id,'testId'=>$test->id]) }}" class="btn btn-sm btn-outline-danger rounded-pill">
-                                        <i class="fas fa-play"></i> Mulai
-                                    </a>
-                                </td>
-                            </tr>
+                            @php $no = 1; @endphp
+                            @foreach($courseItems as $item)
+                                <tr>
+                                    <td class="text-muted">{{ $no++ }}</td>
+                                    <td>
+                                        @if($item->type === 'pre-test' || $item->type === 'post-test')
+                                            <i class="fas fa-file-alt text-danger me-2"></i>
+                                            <strong>{{ $item->title ?? '-' }}</strong>
+                                        @elseif($item->type === 'content')
+                                            <i class="fas fa-play-circle text-danger me-2"></i>
+                                            <strong>{{ $item->title ?? '-' }}</strong>
+                                        @else
+                                            <i class="fas fa-lock text-muted me-2"></i>
+                                            <strong>Unknown Item</strong>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($item->status === 'completed')
+                                            <span class="badge bg-success">Selesai</span>
+                                        @elseif($item->status === 'in-progress')
+                                            <span class="badge bg-warning text-dark">Sedang Berjalan</span>
+                                        @else
+                                            <span class="badge bg-secondary">Terkunci</span>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($item->type === 'pre-test')
+                                            <a href="{{ route('coursepretest', ['id' => $item->course_id, 'testId' => $item->test_id]) }}"
+                                            class="btn btn-sm btn-outline-danger rounded-pill">
+                                                <i class="fas fa-play"></i> Mulai
+                                            </a>
+                                        @elseif($item->type === 'post-test')
+                                            <a href="{{ route('courseposttest', ['id' => $item->course_id, 'testId' => $item->test_id]) }}"
+                                            class="btn btn-sm btn-outline-danger rounded-pill">
+                                                <i class="fas fa-play"></i> Mulai
+                                            </a>
+                                        @elseif($item->type === 'content')
+                                            <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $item->content_id]) }}"
+                                            class="btn btn-sm btn-outline-danger rounded-pill">
+                                                <i class="fas fa-redo"></i> Ulangi
+                                            </a>
+                                        @else
+                                            <button class="btn btn-sm btn-outline-secondary rounded-pill" disabled>
+                                                <i class="fas fa-ban"></i> Belum Tersedia
+                                            </button>
+                                        @endif
 
 
-
+                                    </td>
+                                </tr>
                             @endforeach
-                            @foreach($contents as $content)
 
-                            <tr>
-                                <td class="text-muted">2</td>
-                                <td><i class="fas fa-play-circle text-danger me-2"></i><strong>{{$content->name}}</strong></td>
-                                <td><span class="badge bg-warning text-dark">Sedang Berjalan</span></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-outline-danger rounded-pill">
-                                        <i class="fas fa-redo"></i> Ulangi
-                                    </a>
-                                </td>
-                            </tr>
-
-                            
-
-
-                            @endforeach
-                            
-
-
-                            {{-- <tr>
-                                <td class="text-muted">1</td>
-                                <td><i class="fas fa-file-alt text-danger me-2"></i><strong>Pre-Test</strong></td>
-                                <td><span class="badge bg-success">Selesai</span></td>
-                                <td>
-                                    <a href="{{ route('coursepretest') }}" class="btn btn-sm btn-outline-danger rounded-pill">
-                                        <i class="fas fa-play"></i> Mulai
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted">2</td>
-                                <td><i class="fas fa-play-circle text-danger me-2"></i><strong>Materi 1: Pengantar SPINDO</strong></td>
-                                <td><span class="badge bg-warning text-dark">Sedang Berjalan</span></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-outline-danger rounded-pill">
-                                        <i class="fas fa-redo"></i> Ulangi
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted">3</td>
-                                <td><i class="fas fa-lock text-muted me-2"></i><strong>Materi 2: Struktur Organisasi</strong></td>
-                                <td><span class="badge bg-secondary">Terkunci</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-danger rounded-pill">
-                                        <i class="fas fa-arrow-right"></i> Lanjut
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted">4</td>
-                                <td><i class="fas fa-lock text-muted me-2"></i><strong>Materi 3: Proses Produksi</strong></td>
-                                <td><span class="badge bg-secondary">Terkunci</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-secondary rounded-pill" disabled>
-                                        <i class="fas fa-ban"></i> Belum Tersedia
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-muted">5</td>
-                                <td><i class="fas fa-lock text-muted me-2"></i><strong>Post-Test</strong></td>
-                                <td><span class="badge bg-secondary">Terkunci</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-secondary rounded-pill" disabled>
-                                        <i class="fas fa-ban"></i> Belum Tersedia
-                                    </button>
-                                </td>
-                            </tr> --}}
-
-                            @foreach($posttests as $test)
-                            <tr>
-                                <td class="text-muted">1</td>
-                                <td><i class="fas fa-file-alt text-danger me-2"></i><strong>{{$test->name}}</strong></td>
-                                <td><span class="badge bg-success">Selesai</span></td>
-                                <td>
-                                    <a href="{{ route('coursepretest',['id'=>$course->id,'testId'=>$test->id]) }}" class="btn btn-sm btn-outline-danger rounded-pill">
-                                        <i class="fas fa-play"></i> Mulai
-                                    </a>
-                                </td>
-                            </tr>
-
-                            @endforeach
                         </tbody>
                     </table>
                 </div>

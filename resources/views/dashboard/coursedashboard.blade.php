@@ -14,11 +14,16 @@
         </div>
 
         <div class="card-body">
+        @foreach($courses as $coursefor => $groupedCourses)
+          <h4 class="mb-3 mt-4 text-dark">{{ $groupedCourses->first()->jobposition->name }}</h4>
           <div class="row g-4">
-            @foreach($courses as $course)
+            @foreach($groupedCourses as $course)
               <div class="col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-0 rounded-0">
-                  <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/Water-Pipes-1-640w.jpg" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Thumbnail">
+                  <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/Water-Pipes-1-640w.jpg"
+                      class="card-img-top"
+                      style="height: 180px; object-fit: cover;" 
+                      alt="Thumbnail">
                   <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-dark fw-bold mb-2">{{ $course->name }}</h5>
                     <p class="card-text small text-muted mb-1">Durasi: 45 Menit</p>
@@ -36,7 +41,9 @@
               </div>
             @endforeach
           </div>
-        </div>
+        @endforeach
+      </div>
+
 
       </div>
     </div>

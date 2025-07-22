@@ -16,7 +16,9 @@ class DashboardCourseController extends Controller
      */
     public function index(){
 
-        $data['courses'] = Course::all();
+        $data['courses'] = Course::with('jobposition', 'user')
+                    ->get()
+                    ->groupBy('coursefor_id');
 
         return view('dashboard.coursedashboard',$data);
     }

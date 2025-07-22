@@ -70,16 +70,16 @@
           <div class="icon icon-shape icon-sm text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-briefcase text-dark text-sm"></i>
           </div>
-          <span class="nav-link-text ms-1">Job Position</span>
+          <span class="nav-link-text ms-1">Job Cluster</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('dashboard.questionnaire')}}">
           <div class="icon icon-shape icon-sm text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fas fa-folder-open text-dark text-sm"></i>
           </div>
-          <span class="nav-link-text ms-1">Evaluasi</span>
+          <span class="nav-link-text ms-1">Evaluasi Level 1</span>
         </a>
       </li>
 

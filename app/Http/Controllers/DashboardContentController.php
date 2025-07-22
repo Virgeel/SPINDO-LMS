@@ -30,6 +30,12 @@ class DashboardContentController extends Controller
 
         $data['tests'] = Test::where('course_id',$id)->get();
 
+        $data['courseItems'] =CourseItem::with(['test.user', 'content.user']) // eager load user too
+                            ->where('course_id', $id)
+                            ->orderBy('order')
+                            ->get();
+
+
         return view('dashboard.dashboardcontent',$data);
     }
 
@@ -62,12 +68,23 @@ class DashboardContentController extends Controller
 
         $content = Content::create($validatedContent);
 
+        // Find Post-test item
+        $postTestItem = CourseItem::where('course_id', $id)
+            ->where('type', 'post-test')
+            ->first();
+
+        if ($postTestItem) {
+            // Shift post-test order up by 1
+            $postTestItem->order += 1;
+            $postTestItem->save();
+        }
+
         CourseItem::create([
-            'course_id' => $course_id,
+            'course_id' => $id,
             'type' => 'content',
             'title' => $content->name,
-            'content_id' => $content->id,
-            'order' => CourseItem::where('course_id',$course_id)->max('order') + 1,
+            'content_id' => $content->id, 
+            'order' => $postTestItem ? $postTestItem->order - 1 : CourseItem::where('course_id', $id)->max('order') + 1,
         ]);
 
     
@@ -78,6 +95,8 @@ class DashboardContentController extends Controller
 
         $data['course']=Course::findorFail($id);
         $data['testtypes']=TestType::all();
+
+        
 
         return view('dashboard.createevaluation',$data);
     }
@@ -95,6 +114,9 @@ class DashboardContentController extends Controller
         $pretestId = 1;
         $posttestId = 2;
 
+
+        $maxOrder = CourseItem::where('course_id',$id)->max('order') ?? 0;  
+
         // ✅ Create Quiz
         $pretest = Test::create([
             'course_id' => $request->course_id,
@@ -105,10 +127,10 @@ class DashboardContentController extends Controller
 
         CourseItem::create([
             'course_id' => $pretest->course_id,
-            'type' => 'pre-test',
+            'type' => 'pre-test',   
             'title' => $pretest->name,
             'test_id' => $pretest->id,
-            'order' => CourseItem::where('course_id',$pretest->course_id)->max('order') + 1,
+            'order' => 1,
         ]);
 
         $posttest = Test::create([
@@ -118,12 +140,14 @@ class DashboardContentController extends Controller
             'uploader_id' => $request->uploader_id
         ]);
 
+        
+
         CourseItem::create([
             'course_id' => $request->course_id,
             'type' => 'post-test',
             'title' => $posttest->name,
             'test_id' => $posttest->id,
-            'order' => CourseItem::where('course_id',$posttest->course_id)->max('order') + 1,
+            'order' => CourseItem::where('course_id', $id)->max('order') + 1,
         ]);
 
         // ✅ Loop through questions
@@ -159,6 +183,32 @@ class DashboardContentController extends Controller
 
         return redirect()->route('dashboard.content', ['id' => $id]);
     }
+    
+    public function editOrder($id){
+
+        $data['course'] = Course::where('id',$id)->firstOrFail();
+
+        $data['courseItems'] = CourseItem::where('course_id',$id)
+                                ->orderBy('order')
+                                ->get();
+
+
+        return view('dashboard.dashboardcontenteditorder',$data);
+    }
+
+    public function updateOrder(Request $request, $id){
+         
+        $orders = $request->input('orders');
+
+        foreach ($orders as $itemId => $order) {
+            CourseItem::where('id',$itemId)
+                ->where('course_id', $id) // optional: to prevent cross-course update
+                ->update(['order' => $order]);
+        }
+
+        return redirect(route('dashboard.content',['id' => $id]))->with('Success','Urutan Konten berhasil diperbarui');
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -190,8 +240,33 @@ class DashboardContentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Content $content)
+    public function destroy($id, $contentId)
     {
-        //
+
+        CourseItem::where('content_id',$contentId)->delete();
+
+        Content::destroy($contentId);
+
+        return redirect(route('dashboard.content',['id'=>$id]));
+    }
+
+    public function destroyEvaluation($id, $testId)
+    {
+        $questions = Questions::where('test_id',$testId)->get();
+        
+        foreach ($questions as $question) {
+
+            Answer::where('question_id',$question->id)->delete();
+        }
+        
+        Questions::destroy('test_id',$testId);
+
+        CourseItem::where('test_id', $testId)->delete();
+
+        Test::destroy('id',$testId);
+
+
+        return redirect(route('dashboard.content',['id' => $id]))->with('Success', 'Berhasil menghapus evaluasi');
+        
     }
 }

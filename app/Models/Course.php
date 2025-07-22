@@ -27,4 +27,8 @@ class Course extends Model
         
         return $this->belongsTo(User::class,'uploader_id');
     }
+
+    public function jobposition(){
+        return $this->belongsTo(JobPosition::class,'coursefor_id','id');
+    }
 }

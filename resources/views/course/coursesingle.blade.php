@@ -8,8 +8,8 @@
   <div class="card shadow mb-4 border-0 rounded-1">
     <div class="card-body d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
       <div>
-        <h1 class="h4 fw-bold text-dark mb-1">📘 Apa itu SPINDO?</h1>
-        <p class="text-muted mb-0">Pengenalan perusahaan SPINDO secara menyeluruh.</p>
+        <h1 class="h4 fw-bold text-dark mb-1">{{$content->name}}</h1>
+        <p class="text-muted mb-0">{{$content->short_description}}</p>
       </div>
 
       <div class="w-100 w-lg-33">
@@ -35,38 +35,77 @@
           </iframe>
         </div>
         <div class="card-body">
-          <h2 class="h5 fw-semibold text-dark mb-2">📌 Materi 1: Pengantar SPINDO</h2>
-          <p class="text-muted mb-0">Di materi ini, peserta akan mempelajari informasi dasar tentang SPINDO, termasuk sejarah dan struktur dasar perusahaan.</p>
+          <h2 class="h5 fw-semibold text-dark mb-2">📌 {{$content->name}}</h2>
+          <p class="text-muted mb-0">
+            {{$content->description}}
+            Di materi ini, peserta akan mempelajari informasi dasar tentang SPINDO, termasuk sejarah dan struktur dasar perusahaan.</p>
         </div>
       </div>
     </div>
+
 
     {{-- Sidebar --}}
     <div class="col-lg-3">
       <div class="card shadow-sm border-0 rounded-1">
         <div class="card-body">
           <h3 class="h6 fw-semibold text-dark mb-3">📂 Daftar Materi</h3>
+          
           <ul class="list-group list-group-flush">
+
+
+          @php
+             $count = 1;
+          @endphp
+
+          @foreach($courseItems as $courseItem)
+
+            @php
+                $isActive = $courseItem->content_id === $content->id;
+            @endphp
+
+            @if($courseItem->type == 'content')
+
+            <li class="list-group-item d-flex align-items-start">
+                @if($isActive)
+                    <span class="spinner-grow spinner-grow-sm text-warning me-2 mt-1" role="status"></span>
+                    <span class="small fw-semibold text-primary blink">
+                        Materi {{$count++}} : {{ $courseItem->title }}
+                    </span>
+                @else
+                    <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
+                    <span class="small fw-medium">Materi {{$count++}}: {{ $courseItem->title }}</span>
+                @endif
+            </li>
+
+
+            @elseif($courseItem->type == 'pre-test' || 'post-test')
             <li class="list-group-item d-flex align-items-start">
               <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-              <span class="small fw-medium">Materi 1: Pengantar SPINDO</span>
+              <span class="small fw-medium"> {{$courseItem->type}}</span>
             </li>
-            <li class="list-group-item d-flex align-items-start">
-              <i class="bi bi-check-circle-fill text-success me-2 mt-1"></i>
-              <span class="small fw-medium">Materi 2: Struktur Organisasi</span>
-            </li>
-            <li class="list-group-item d-flex align-items-start">
-              <span class="spinner-grow spinner-grow-sm text-warning me-2 mt-1" role="status"></span>
-              <span class="small fw-semibold text-primary">Materi 3: Proses Produksi</span>
-            </li>
+
+            @endif
+          
+
+          @endforeach
+
           </ul>
         </div>
       </div>
 
       <div class="pt-3 text-end">
-        <a href="{{ route('courseposttest',['id'=>$course->id,'testId'=>$test->id]) }}" class="btn btn-danger w-100">
+
+        @if($prev)
+            <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $prev->id]) }}" class="btn btn-secondary">← Back</a>
+        @endif
+
+        @if($next)
+            <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $next->id]) }}" class="btn btn-primary">Next →</a>
+        @endif
+
+        {{-- <a href="{{ route('courseposttest',['id'=>$course->id,'testId'=>$test->id]) }}" class="btn btn-danger w-100">
           Materi Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
-        </a>
+        </a> --}}
       </div>
     </div>
   </div>

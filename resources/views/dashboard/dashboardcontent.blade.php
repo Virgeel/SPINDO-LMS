@@ -26,6 +26,9 @@
                                 <i class="fas fa-file-alt me-2"></i> Tambahkan Evaluasi
                             </a>
                         @endif
+                        <a href="{{ route('dashboard.content.order.edit', ['id' => $course->id]) }}" class="btn bg-gradient-danger text-light fw-bold">
+                            <i class="fas fa-edit me-2"></i> Edit Urutan
+                        </a>
 
                         <!-- Modal -->
                         <div class="modal fade" id="testExistsModal" tabindex="-1" aria-labelledby="testExistsModalLabel" aria-hidden="true">
@@ -68,70 +71,71 @@
                             </thead>
                             <tbody>
 
-                                @foreach($tests as $test)
+                                @foreach($courseItems as $item)
                                 <tr>
                                     <td class="text-center">
                                         <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/Water-Pipes-1-640w.jpg" 
-                                             alt="Thumbnail" height="60" 
-                                             class="rounded-1 shadow-sm" style="object-fit: cover;">
+                                            alt="Thumbnail" height="60" 
+                                            class="rounded-1 shadow-sm" style="object-fit: cover;">
                                     </td>
                                     <td>
-                                        <strong>{{ $test->name }}</strong>
+                                        <strong>
+                                            {{ $item->title }}
+                                        </strong>
                                     </td>
                                     <td>
-                                        <strong>Konten</strong>
+                                        <strong>{{ ucfirst($item->type) }}</strong>
                                     </td>
                                     <td>45 Menit</td>
-                                    <td>{{ $test->user->name ?? 'None' }}</td>
-                                    <td class="text-center">
+                                    <td>
+                                        @if($item->type === 'pre-test' || $item->type === 'post-test')
+                                            {{ $item->test->user->name ?? '-' }}
+                                        @elseif($item->type === 'content')
+                                            {{ $item->content->user->name ?? '-' }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="text-center d-flex">
                                         <a href="#" class="btn btn-sm btn-outline-success me-1">
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="#" class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @foreach($contents as $content)
-                                <tr>
-                                    <td class="text-center">
-                                        <img src="https://lirp.cdn-website.com/2f73b385/dms3rep/multi/opt/Water-Pipes-1-640w.jpg" 
-                                             alt="Thumbnail" height="60" 
-                                             class="rounded-1 shadow-sm" style="object-fit: cover;">
-                                    </td>
-                                    <td>
-                                        <strong>{{ $content->name }}</strong>
-                                    </td>
-                                    <td>
-                                        <strong>Konten</strong>
-                                    </td>
-                                    <td>45 Menit</td>
-                                    <td>{{ $content->user->name }}</td>
-                                    <td class="text-center">
-                                        <a href="#" class="btn btn-sm btn-outline-success me-1">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-sm btn-outline-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        <div class="px-1">
+                                            @if($item->type === 'pre-test' || $item->type === 'post-test')
+                                                @if($item->test_id)
+                                                <form action="{{ route('dashboard.evaluation.destroy', ['id' => $course->id, 'testId' => $item->test_id]) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Pre-Test dan Post-Test dari konten ini akan dihapus, lanjutkan?')">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
+
+                                            @elseif($item->type === 'content')
+                                                @if($item->content_id)
+                                                <form action="{{ route('dashboard.content.destroy', ['id' => $course->id, 'contentId' => $item->content_id]) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Konten ini akan dihapus, lanjutkan?')">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                @endif
+                                            @endif
+
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
 
-                                @if($contents->isEmpty())
-                                <tr>
-                                    <td colspan="5" class="text-center text-muted py-4">
-                                        <em>Belum ada konten yang ditambahkan.</em>
-                                    </td>
-                                </tr>
-                                @endif
                             </tbody>
                         </table>
                     </div>

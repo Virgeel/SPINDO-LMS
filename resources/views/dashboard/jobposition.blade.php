@@ -21,14 +21,14 @@
         <div class="col-lg-6 mb-4">
             <div class="card shadow-lg rounded-0">
                 <div class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center rounded-0">
-                    <h3 class="mb-0 text-white">Jabatan Pekerjaan</h3>
+                    <h3 class="mb-0 text-white">Cluster Jabatan</h3>
                 </div>
 
                 <div class="card-body">
                     {{-- Action Buttons --}}
                     <div class="mb-4 d-flex flex-wrap gap-2">
                         <a href="{{ route('dashboard.jobposition.create')}}" class="btn bg-gradient-danger text-light fw-bold">
-                            <i class="fas fa-plus me-2"></i> Tambahkan Jabatan Pekerjaan
+                            <i class="fas fa-plus me-2"></i> Tambahkan Cluster Jabatan
                         </a>
                     </div>
 

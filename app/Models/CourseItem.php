@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Test;
+use App\Models\Content;
+
 class CourseItem extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseItemFactory> */
@@ -15,7 +18,7 @@ class CourseItem extends Model
         'title',
         'type',
         'test_id',
-        'content',
+        'content_id',
         'order',
         'duration',
     ];
@@ -23,4 +26,15 @@ class CourseItem extends Model
     public function course(){
         return $this->belongsTo(Course::class);
     }
+
+    public function test()
+    {
+        return $this->belongsTo(Test::class, 'test_id');
+    }
+
+    public function content()
+    {
+        return $this->belongsTo(Content::class,'content_id',);
+    }
+
 }
