@@ -8,10 +8,10 @@
         <div class="col-xl-12 mb-4">
             <div class="card shadow-lg">
                 <div  style="border-radius:7px;" class="card-header bg-gradient-danger text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0" style="color:#fff">📚 {{$course->name}}</h3>
+                    <h3 class="mb-0" style="color:#fff">{{$course->name}}</h3>
                 </div>
                 
-                <form action="{{route('dashboard.storecontent',['id'=>$course->id])}}" method="POST">
+                <form id="upload-form" action="{{route('dashboard.storecontent',['id'=>$course->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -63,20 +63,34 @@
                         </div>
                         <div class=" py-1">
                             <label for="">Tipe</label>
-                            <select class="form-select" name="type_id">
+                            <select class="form-select" name="type_id" id="type-selector">
                                 @foreach($types as $type)
                                     <option value="{{$type->id}}">{{$type->name}}</option>
                                 @endforeach
                             </select>
                         </div>
+                        <div class=" py-1" id="video-field">
+                            <label for="">Video</label>
+                            <input type="file" class="form-control" name="video" id="video">
+                        </div>
+
+                         {{-- <div class="progress mt-3" style="height: 25px;">
+                            <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;">
+                                0%
+                            </div>
+                            </div>
+
+                            <div id="upload-status" class="mt-2 text-success"></div>
+                        --}}
                         <div class=" py-1">
                             <label for="">Thumbnail</label>
                             <input type="file" class="form-control" name="thumbnail">
                         </div>
-                        <div class=" py-1">
-                            <label for="">Video</label>
-                            <input type="file" class="form-control" name="video">
+                        <div class=" py-1" id="text-field">
+                            <label for="">Explanation</label>
+                            <textarea class="form-control" name="explanation" id="" cols="30" rows="10"></textarea>
                         </div>
+                        
 
                     </div>
 
@@ -128,5 +142,90 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const typeSelector = document.getElementById('type-selector');
+    const videoField = document.getElementById('video-field');
+    const explanationField = document.getElementById('text-field');
+
+    function toggleFields() {
+        const selectedTypeId = parseInt(typeSelector.value);
+
+        if (selectedTypeId === 1) { // 1 = Video (adjust based on your DB)
+            videoField.style.display = 'block';
+            explanationField.style.display = 'none';
+        } else if (selectedTypeId === 2) { // 2 = Text
+            videoField.style.display = 'none';
+            explanationField.style.display = 'block';
+        } else {
+            videoField.style.display = 'none';
+            explanationField.style.display = 'none';
+        }
+    }
+
+    typeSelector.addEventListener('change', toggleFields);
+    toggleFields(); // Call once on page load
+});
+</script>
+
+
+
+
+
+{{-- 
+<script>
+document.getElementById('upload-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = document.getElementById('upload-form');
+    const formData = new FormData(form);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', form.action, true);
+
+    // Show upload progress
+    xhr.upload.addEventListener('progress', function(e) {
+        if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = percent + '%';
+        }
+    });
+
+    // Response handler
+    xhr.onload = function () {
+        const progressBar = document.getElementById('progress-bar');
+        if (xhr.status === 200) {
+            document.getElementById('upload-status').innerText = 'Upload completed!';
+            progressBar.classList.add('bg-success');
+        } else if (xhr.status === 422) {
+            const response = JSON.parse(xhr.responseText);
+            let errors = response.errors;
+            let errorMessage = 'Validation failed:\n';
+            for (let field in errors) {
+                errorMessage += `${field}: ${errors[field].join(', ')}\n`;
+            }
+            alert(errorMessage);
+        } else {
+            document.getElementById('upload-status').innerText = 'Upload failed.';
+            progressBar.classList.add('bg-danger');
+            console.error('Upload failed:', xhr.responseText);
+        }
+    };
+
+    xhr.onerror = function () {
+        document.getElementById('upload-status').innerText = 'Upload error.';
+        document.getElementById('progress-bar').classList.add('bg-danger');
+    };
+
+    xhr.send(formData);
+});
+</script> --}}
+
+
+
+
 
 @endsection

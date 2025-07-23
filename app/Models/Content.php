@@ -19,7 +19,6 @@ class Content extends Model
         'thumbnail',
         'video',
         'explanation',
-        
     ];
 
     public function course(){

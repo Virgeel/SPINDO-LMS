@@ -61,7 +61,8 @@ class CourseController extends Controller
                         ->where('test_type_id',$posttestId)
                         ->firstOrFail();
         
-        $current = Courseitem::findOrFail($contentId);
+        $current = Courseitem::where('content_id',$contentId)
+                            ->firstOrFail();
         
         $data['next'] = Courseitem::where('course_id', $id)
                 ->where('order', '>', $current->order)

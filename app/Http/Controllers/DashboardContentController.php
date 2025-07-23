@@ -13,8 +13,11 @@ use App\Models\TestType;
 use App\Models\Test;
 use App\Models\Questions;
 use App\Models\Answer;
-
 use App\Models\CourseItem;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 
 class DashboardContentController extends Controller
 {
@@ -63,10 +66,67 @@ class DashboardContentController extends Controller
 
         ]);
 
+        // Initialize filename variable
+        $thumbnailFilename = null;
+
+        // Handle the file upload
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $extension = $file->getClientOriginalExtension();
+            $thumbnailFilename = 'thumbnail_' . uniqid() . '.' . $extension;
+        
+            // Ensure the directories exist (you can skip this part if the directories are already created)
+            // Storage::disk('public')->makeDirectory('content_thumbnail');
+        
+            // Store the file in the appropriate folder (images or videos)
+            if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                // It's an image, store it in the public/post_photo directory
+                $file->storeAs('content_thumbnail', $thumbnailFilename, 'public');
+             } else {
+                // Invalid file type, return an error message
+                return redirect()->back()->withErrors(['thumbnail' => 'Invalid file type. Only images and videos are allowed.']);
+            }
+        }
+
+        // Initialize filename variable
+        $videoFilename = null;
+
+        // Handle the file upload
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $extension = $file->getClientOriginalExtension();
+            $videoFilename = 'content_' . uniqid() . '.' . $extension;
+        
+            // Ensure the directories exist (you can skip this part if the directories are already created)
+            // Storage::disk('public')->makeDirectory('content_video');
+        
+            // Store the file in the appropriate folder (images or videos)
+            if (in_array($extension, ['mp4', 'avi', 'mov', 'mkv'])) {
+                // It's a video, store it in the public/post_video directory
+                $file->storeAs('content_video', $videoFilename, 'public');
+            } else {
+                // Invalid file type, return an error message
+                return redirect()->back()->withErrors(['video' => 'Invalid file type. Only images and videos are allowed.']);
+            }
+        }
+
         $course_id = $id;
         $validatedContent['course_id'] = $course_id;
 
-        $content = Content::create($validatedContent);
+        // dd($videoFilename);
+
+        $content = Content::create([
+            'name'=>$validatedContent['name'],
+            'uploader_id'=>$validatedContent['uploader_id'],
+            'short_description'=>$validatedContent['short_description'],
+            'description'=>$validatedContent['description'],
+            'course_id' => $validatedContent['course_id'],
+            'type_id'=>$validatedContent['type_id'],
+            'thumbnail'=>$thumbnailFilename,
+            'video'=>$videoFilename,
+            'explanation'=>$validatedContent['explanation'],
+
+        ]);
 
         // Find Post-test item
         $postTestItem = CourseItem::where('course_id', $id)

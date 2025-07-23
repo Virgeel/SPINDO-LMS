@@ -56,6 +56,9 @@
                                         <a href="#" class="btn btn-sm btn-outline-danger">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        <a href="#" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach

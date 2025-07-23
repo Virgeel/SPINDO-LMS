@@ -29,10 +29,33 @@
     {{-- Video / Lesson --}}
     <div class="col-lg-9">
       <div class="card shadow-sm border-0 rounded-1">
-        <div class="ratio ratio-16x9">
+        <div class="">
+          @if($content->video)
+          
+          <video
+            id="my-video"
+            class="video-js vjs-default-skin"
+            controls
+            preload="auto"
+            width="640"
+            height="360"
+            poster="/images/video-poster.jpg"
+            data-setup='{}'
+          >
+            <source src="{{ asset('storage/content_video/' . $content->video) }}" type="video/mp4" />
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a
+              web browser that supports HTML5 video.
+            </p>
+          </video>
+
+          @else
+
           <iframe class="rounded-top" src="https://www.youtube.com/embed/EwV4R170lhE?si=842GfwX9r2VzMc8P" title="Video SPINDO"
                   frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
           </iframe>
+
+          @endif
         </div>
         <div class="card-body">
           <h2 class="h5 fw-semibold text-dark mb-2">📌 {{$content->name}}</h2>
@@ -96,12 +119,25 @@
       <div class="pt-3 text-end">
 
         @if($prev)
-            <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $prev->id]) }}" class="btn btn-secondary">← Back</a>
+            @if($prev->type === 'content' && $prev->content_id)
+                <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $prev->content_id]) }}" class="btn btn-secondary">← Back</a>
+            @elseif($prev->type === 'pre-test' && $prev->test_id)
+                <a href="{{ route('coursepretest', ['id' => $course->id, 'testId' => $prev->test_id]) }}" class="btn btn-secondary">← Back</a>
+            @elseif($prev->type === 'post-test' && $prev->test_id)
+                <a href="{{ route('courseposttest', ['id' => $course->id, 'testId' => $prev->test_id]) }}" class="btn btn-secondary">← Back</a>
+            @endif
         @endif
 
         @if($next)
-            <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $next->id]) }}" class="btn btn-primary">Next →</a>
+            @if($next->type === 'content' && $next->content_id)
+                <a href="{{ route('coursesingle', ['id' => $course->id, 'contentId' => $next->content_id]) }}" class="btn btn-primary">Next →</a>
+            @elseif($next->type === 'pre-test' && $next->test_id)
+                <a href="{{ route('coursepretest', ['id' => $course->id, 'testId' => $next->test_id]) }}" class="btn btn-primary">Next →</a>
+            @elseif($next->type === 'post-test' && $next->test_id)
+                <a href="{{ route('courseposttest', ['id' => $course->id, 'testId' => $next->test_id]) }}" class="btn btn-primary">Next →</a>
+            @endif
         @endif
+
 
         {{-- <a href="{{ route('courseposttest',['id'=>$course->id,'testId'=>$test->id]) }}" class="btn btn-danger w-100">
           Materi Selanjutnya <i class="bi bi-arrow-right ms-1"></i>
@@ -110,5 +146,21 @@
     </div>
   </div>
 </section>
+
+<!-- In your <head> -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+
+<script>
+    const player = new Plyr('#player');
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    videojs('my-video'); // Only once, after DOM is loaded
+  });
+</script>
+
 
 @endsection

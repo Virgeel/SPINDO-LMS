@@ -32,7 +32,7 @@ Route::get('/course/congratulate',[CourseController::class,'finish'])->name('cou
 
 Route::get('/dashboard/course',[DashboardCourseController::class,'index'])->name('dashboard.course');
 Route::get('/dashboard/course/create',[DashboardCourseController::class,'createcourse'])->name('dashboard.createcourse');
-Route::post('/dsahboard/course/add',[DashboardCourseController::class,'addcourse'])->name('dashboard.addcourse');
+Route::post('/dashboard/course/add',[DashboardCourseController::class,'addcourse'])->name('dashboard.addcourse');
 Route::get('/dashboard/course/modify/{id}',[DashboardCourseController::class,'coursemodify'])->name('dashboard.coursemodify');
 
 Route::get('/dashboard/category',[DashboardCategoryController::class,'index'])->name('dashboard.category');
@@ -54,7 +54,7 @@ Route::get('/dashboard/user',[DashboardUserController::class,'user'])->name('das
 Route::get('/dsahboard/user/create',[DashboardUserController::class,'createuser'])->name('dashboard.createuser');
 
 Route::get('/dashboard/jobposition',[DashboardJobPositionController::class,'jobposition'])->name('dashboard.jobposition');
-Route::get('/dahsboard/jobposition/create',[DashboardJobPositionController::class,'createjobposition'])->name('dashboard.jobposition.create');
+Route::get('/dashboard/jobposition/create',[DashboardJobPositionController::class,'createjobposition'])->name('dashboard.jobposition.create');
 Route::get('/dashboard/jobposition/add',[DashboardJobPositionController::class,'addjobposition'])->name('dashboard.jobposition.add');
 
 Route::get('/dashboard/approval',[DashboardApprovalController::class,'approval'])->name('dashboard.approval');
